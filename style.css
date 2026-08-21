@@ -1,32 +1,389 @@
 /* =========================================
-   FANTASY THEME EXTENSION
+   1. FANTASY THEME VARIABLES & BASE
    ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Kanit:wght@300;400;500;600&display=swap');
+
 :root {
-    --fantasy-bg: #0b0d1b;
-    --fantasy-card-bg: rgba(20, 25, 55, 0.75);
-    --fantasy-gold: #ffd700;
-    --fantasy-gold-glow: rgba(255, 215, 0, 0.4);
-    --fantasy-purple: #8a2be2;
-    --fantasy-cyan: #00f2fe;
-    --text-fantasy-light: #e0e6ed;
+    --bg-dark: #07090E;
+    --bg-card: rgba(18, 25, 42, 0.85);
+    --primary-magic: #2A52BE;
+    --primary-glow: #00D2FF;
+    --gold-accent: #FFD700;
+    --gold-border: #C5A059;
+    --text-light: #F0F4F8;
+    --text-muted: #94A3B8;
+    --shadow-magic: 0 0 20px rgba(0, 210, 255, 0.2), 0 0 10px rgba(255, 215, 0, 0.15);
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-body.fantasy-theme {
-    background: radial-gradient(circle at top, #1a1c3b 0%, #080914 100%);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(42, 82, 190, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, #0c101a 0%, #07090E 100%);
     background-attachment: fixed;
-    color: var(--text-fantasy-light);
+    color: var(--text-light);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Music BGM Player Widget Floating Bottom Right */
-.audio-player-widget {
+main { flex: 1; }
+a { text-decoration: none; color: inherit; }
+
+/* =========================================
+   2. LAYOUT & TYPOGRAPHY
+   ========================================= */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.section { padding: 60px 0; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.page-title { text-align: center; margin-bottom: 40px; }
+.page-title h2 {
+    font-family: 'Cinzel', 'Kanit', serif;
+    font-size: 2.5rem;
+    color: var(--gold-accent);
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+.page-title p { color: var(--text-muted); font-size: 1.05rem; }
+
+/* =========================================
+   3. FANTASY NAVBAR
+   ========================================= */
+.navbar-container {
+    position: sticky;
+    top: 0;
+    background: rgba(7, 9, 14, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: 'Cinzel', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold-accent);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    letter-spacing: 2px;
+}
+
+.logo-accent { color: var(--primary-glow); }
+
+.nav-menu { display: flex; list-style: none; gap: 12px; }
+
+.nav-link {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 500;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--gold-accent);
+    background: rgba(42, 82, 190, 0.2);
+    border-color: var(--gold-border);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+/* =========================================
+   4. HERO SECTION (MAGICAL CODEX)
+   ========================================= */
+.hero-section {
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(42, 82, 190, 0.25);
+    color: var(--primary-glow);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    border: 1px solid var(--primary-glow);
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    color: var(--text-light);
+    margin-bottom: 16px;
+}
+
+.highlight {
+    color: var(--gold-accent);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    font-family: 'Cinzel', 'Kanit', serif;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.hero-buttons { display: flex; gap: 16px; }
+
+.hero-image-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.bg-shape {
+    position: absolute;
+    width: 330px;
+    height: 330px;
+    background: radial-gradient(circle, rgba(0, 210, 255, 0.4) 0%, rgba(255, 215, 0, 0.2) 60%, transparent 100%);
+    border-radius: 50%;
+    z-index: 1;
+    filter: blur(20px);
+    animation: magicPulse 4s infinite alternate;
+}
+
+.hero-img {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 2;
+    border: 4px solid var(--gold-border);
+    box-shadow: var(--shadow-magic);
+    transition: var(--transition);
+}
+
+.hero-img:hover {
+    transform: scale(1.05) rotate(2deg);
+    border-color: var(--gold-accent);
+}
+
+@keyframes magicPulse {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    100% { transform: scale(1.1); opacity: 0.9; }
+}
+
+/* =========================================
+   5. FANTASY BUTTONS & CARDS
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--gold-border), var(--gold-accent));
+    color: #07090E;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+}
+
+.btn-outline {
+    border: 2px solid var(--primary-glow);
+    color: var(--primary-glow);
+    background: rgba(0, 210, 255, 0.05);
+}
+
+.btn-outline:hover {
+    background: rgba(0, 210, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    border: 1px solid rgba(197, 160, 89, 0.25);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold-accent);
+    box-shadow: var(--shadow-magic);
+}
+
+.card-icon, .hobby-icon, .contact-icon {
+    font-size: 2.8rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+}
+
+.highlight-card h3, .hobby-card h3, .contact-card h3 {
+    color: var(--gold-accent);
+    font-family: 'Cinzel', 'Kanit', serif;
+    margin-bottom: 8px;
+}
+
+/* =========================================
+   6. PROFILE & TABLES
+   ========================================= */
+.profile-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 30px;
+}
+
+.profile-card-main {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    text-align: center;
+    border: 1px solid var(--gold-border);
+    box-shadow: var(--shadow-magic);
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--gold-accent);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.profile-tag {
+    display: inline-block;
+    margin-top: 12px;
+    background: rgba(42, 82, 190, 0.3);
+    color: var(--primary-glow);
+    padding: 4px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--primary-glow);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.info-label { color: var(--gold-accent); font-size: 0.85rem; }
+.info-value { color: var(--text-light); font-weight: 500; }
+
+/* Timeline Magic Style */
+.timeline-wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    padding-left: 30px;
+}
+
+.timeline-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--primary-magic), var(--gold-accent));
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -30px;
+    top: 20px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 3px solid var(--gold-border);
+}
+
+.active-dot {
+    background: var(--gold-accent);
+    box-shadow: 0 0 12px var(--gold-accent);
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--gold-border);
+}
+
+.custom-table th {
+    background: rgba(42, 82, 190, 0.3);
+    color: var(--gold-accent);
+    padding: 16px;
+    font-family: 'Cinzel', 'Kanit', serif;
+}
+
+.custom-table td { padding: 16px; border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
+
+/* =========================================
+   7. MUSIC PLAYER WIDGET (FANTASY AUDIO)
+   ========================================= */
+.music-player-widget {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: rgba(15, 18, 42, 0.9);
-    border: 1px solid var(--fantasy-gold);
-    box-shadow: 0 0 15px var(--fantasy-gold-glow);
-    padding: 10px 18px;
-    border-radius: 40px;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(18, 25, 42, 0.95);
+    border: 1px solid var(--gold-border);
+    padding: 12px 18px;
+    border-radius: 30px;
+    box-shadow: var(--shadow-magic);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -34,98 +391,47 @@ body.fantasy-theme {
     backdrop-filter: blur(10px);
 }
 
-.music-icon {
-    font-size: 1.4rem;
-    animation: pulseGlow 2s infinite alternate;
+.music-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--gold-accent);
 }
 
-.music-title {
-    font-size: 0.8rem;
-    color: var(--fantasy-gold);
-    display: block;
-    font-weight: 500;
-}
+.music-icon { animation: spin 6s linear infinite; display: inline-block; }
 
-audio {
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.music-player-widget audio {
     height: 30px;
-    max-width: 170px;
+    max-width: 180px;
+    filter: invert(0.9) hue-rotate(180deg);
 }
 
-/* Navbar Fantasy */
-.fantasy-theme .navbar-container {
-    background: rgba(11, 13, 27, 0.85);
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+/* =========================================
+   8. FOOTER
+   ========================================= */
+.footer {
+    background: rgba(5, 7, 12, 0.95);
+    border-top: 1px solid var(--gold-border);
+    color: var(--text-light);
+    padding: 40px 0 20px;
+    margin-top: 60px;
 }
 
-.fantasy-theme .logo {
-    color: var(--fantasy-gold);
-    text-shadow: 0 0 10px var(--fantasy-gold-glow);
-}
+.footer-content { display: flex; justify-content: space-between; align-items: center; }
+.footer-links { display: flex; list-style: none; gap: 20px; }
+.footer-links a { color: var(--text-muted); transition: var(--transition); }
+.footer-links a:hover { color: var(--gold-accent); }
+.footer-bottom { text-align: center; padding-top: 20px; color: var(--text-muted); font-size: 0.85rem; }
 
-.fantasy-theme .logo-accent {
-    color: var(--fantasy-cyan);
-}
-
-.fantasy-theme .nav-link {
-    color: #a0aec0;
-}
-
-.fantasy-theme .nav-link:hover, 
-.fantasy-theme .nav-link.active {
-    color: var(--fantasy-gold);
-    background: rgba(255, 215, 0, 0.12);
-    border: 1px solid var(--fantasy-gold-glow);
-}
-
-/* Title Glow */
-.fantasy-title h2 {
-    color: var(--fantasy-gold);
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 25px var(--fantasy-purple);
-}
-
-.fantasy-title p {
-    color: #94a3b8;
-}
-
-/* Fantasy Cards Glow */
-.fantasy-card {
-    background: var(--fantasy-card-bg) !important;
-    border: 1px solid rgba(138, 43, 226, 0.3) !important;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    color: var(--text-fantasy-light);
-}
-
-.fantasy-card h3 {
-    color: var(--fantasy-gold);
-    margin-top: 10px;
-}
-
-.fantasy-card p {
-    color: #cbd5e1;
-}
-
-.fantasy-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: var(--fantasy-gold) !important;
-    box-shadow: 0 0 20px var(--fantasy-gold-glow), 0 0 30px rgba(138, 43, 226, 0.4);
-}
-
-.hobby-icon {
-    filter: drop-shadow(0 0 8px var(--fantasy-cyan));
-}
-
-/* Fantasy Footer */
-.fantasy-footer {
-    background-color: #05060d !important;
-    border-top: 1px solid rgba(255, 215, 0, 0.2);
-}
-
-.fantasy-footer .footer-links a {
-    color: var(--fantasy-gold);
-}
-
-@keyframes pulseGlow {
-    0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--fantasy-gold)); }
-    100% { transform: scale(1.2); filter: drop-shadow(0 0 10px var(--fantasy-cyan)); }
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; gap: 12px; }
+    .hero-container { flex-direction: column-reverse; text-align: center; }
+    .hero-buttons { justify-content: center; }
+    .profile-layout, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .music-player-widget { bottom: 10px; right: 10px; padding: 8px 12px; }
+    .music-player-widget audio { max-width: 130px; }
 }
