@@ -1,5 +1,5 @@
 /* =========================================
-   1. GLOBAL & PAGE TRANSITION (PORTAL FADE-IN)
+   1. GLOBAL & PAGE TRANSITION
    ========================================= */
 html {
     scroll-behavior: smooth;
@@ -8,8 +8,8 @@ html {
 body {
     background-color: #0A0518;
     background-image: 
-        radial-gradient(circle at 20% 15%, rgba(157, 78, 221, 0.25) 0%, transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.2) 0%, transparent 45%),
+        radial-gradient(circle at 20% 15%, rgba(157, 78, 221, 0.3) 0%, transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.25) 0%, transparent 50%),
         linear-gradient(to bottom, #0A0518, #12072B);
     background-attachment: fixed;
     color: #F1F5F9;
@@ -70,65 +70,115 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* =========================================
-   3. BACKGROUND DYNAMIC ANIMATIONS (เหมือนตู้ปลาแต่เป็นเวทมนตร์)
+   3. DYNAMIC BACKGROUND ANIMATIONS (FULL MAGIC AQUARIUM)
    ========================================= */
 
-/* 1) เงามังกร / สัตว์เวท บินว่ายพาดผ่านจอจากซ้ายไปขวา */
+/* 1) มังกรตัวที่ 1 (ตัวใหญ่ บินช้า ฉากหลัง) */
 body::before {
     content: '🐉';
     position: fixed;
     top: 15%;
-    left: -100px;
-    font-size: 3.5rem;
-    opacity: 0.25;
-    filter: drop-shadow(0 0 15px var(--arcana-purple)) blur(1px);
+    left: -120px;
+    font-size: 4rem;
+    opacity: 0.35;
+    filter: drop-shadow(0 0 20px var(--arcana-purple)) blur(0.5px);
     pointer-events: none;
     z-index: 1;
-    animation: flyAcross 28s linear infinite;
+    animation: flyAcross1 22s linear infinite;
 }
 
-@keyframes flyAcross {
-    0% {
-        transform: translateX(0) translateY(0) rotate(5deg);
-    }
-    50% {
-        transform: translateX(60vw) translateY(-30px) rotate(-3deg);
-    }
-    100% {
-        transform: translateX(110vw) translateY(20px) rotate(8deg);
-    }
+@keyframes flyAcross1 {
+    0% { transform: translateX(0) translateY(0) rotate(4deg); }
+    50% { transform: translateX(55vw) translateY(-40px) rotate(-4deg); }
+    100% { transform: translateX(115vw) translateY(20px) rotate(6deg); }
 }
 
-/* 2) ละอองเวทมนตร์ลอยเอื่อยๆ ขึ้นด้านบน (Mana Bubbles) */
+/* 2) ละอองเวทมนตร์ฟองอากาศลอยขึ้น (Mana Bubble 1) */
 body::after {
     content: '✨';
     position: fixed;
     bottom: -50px;
-    right: 15%;
-    font-size: 2rem;
+    left: 10%;
+    font-size: 2.2rem;
     color: var(--mana-cyan);
-    opacity: 0.5;
-    text-shadow: 0 0 12px var(--mana-cyan);
+    opacity: 0.6;
+    text-shadow: 0 0 15px var(--mana-cyan);
     pointer-events: none;
     z-index: 1;
-    animation: manaRise 12s ease-in-out infinite;
+    animation: manaRise1 10s ease-in-out infinite;
 }
 
-@keyframes manaRise {
-    0% {
-        transform: translateY(0) scale(0.8) rotate(0deg);
-        opacity: 0;
-    }
-    30% {
-        opacity: 0.7;
-    }
-    80% {
-        opacity: 0.4;
-    }
-    100% {
-        transform: translateY(-105vh) scale(1.4) rotate(180deg);
-        opacity: 0;
-    }
+@keyframes manaRise1 {
+    0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+    30% { opacity: 0.8; }
+    80% { opacity: 0.4; }
+    100% { transform: translateY(-110vh) scale(1.3) rotate(180deg); opacity: 0; }
+}
+
+/* 3) อนิมิชั่นเสริมผ่าน Class Wrapper ใน Body (มังกรตัวที่ 2 + ละอองเพิ่ม) */
+.bg-animation-layer {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* สัตว์เวทตัวที่ 2 (บินเร็ว ด้านล่าง) */
+.dragon-secondary {
+    position: absolute;
+    top: 65%;
+    right: -100px;
+    font-size: 2.5rem;
+    opacity: 0.4;
+    filter: drop-shadow(0 0 15px var(--mana-cyan));
+    animation: flyAcross2 16s linear infinite;
+    animation-delay: -5s;
+}
+
+@keyframes flyAcross2 {
+    0% { transform: translateX(0) translateY(0) scaleX(-1) rotate(-5deg); }
+    50% { transform: translateX(-50vw) translateY(30px) scaleX(-1) rotate(5deg); }
+    100% { transform: translateX(-115vw) translateY(-20px) scaleX(-1) rotate(-3deg); }
+}
+
+/* ฟองเวทมนตร์สายที่ 2 (ฝั่งขวา) */
+.mana-bubble-2 {
+    position: absolute;
+    bottom: -50px;
+    right: 20%;
+    font-size: 1.8rem;
+    color: var(--rune-gold);
+    opacity: 0.5;
+    text-shadow: 0 0 12px var(--rune-gold);
+    animation: manaRise2 13s ease-in-out infinite;
+    animation-delay: -4s;
+}
+
+@keyframes manaRise2 {
+    0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 0; }
+    40% { opacity: 0.7; }
+    100% { transform: translateY(-110vh) scale(1.5) rotate(-180deg); opacity: 0; }
+}
+
+/* ละอองหิมะเวทมนตร์ร่วงลงมา */
+.magic-snow {
+    position: absolute;
+    top: -40px;
+    left: 45%;
+    font-size: 1.5rem;
+    color: #FFF;
+    opacity: 0.6;
+    text-shadow: 0 0 10px #FFF, 0 0 20px var(--arcana-purple);
+    animation: magicFall 14s linear infinite;
+    animation-delay: -2s;
+}
+
+@keyframes magicFall {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.5; }
+    100% { transform: translateY(110vh) translateX(80px) rotate(360deg); opacity: 0; }
 }
 
 /* =========================================
@@ -164,7 +214,7 @@ body::after {
 }
 
 /* =========================================
-   5. NAVIGATION BAR (MANA INTERFACE)
+   5. NAVIGATION BAR
    ========================================= */
 .navbar-container {
     position: sticky;
@@ -250,33 +300,27 @@ body::after {
     border-bottom: 1px solid rgba(157, 78, 221, 0.3);
 }
 
-/* คริสตัลลอยขึ้น-ลง อิสระ */
 .hero-section::before,
 .hero-section::after {
     content: '💎';
     position: absolute;
-    font-size: 1.8rem;
-    filter: drop-shadow(0 0 12px var(--mana-cyan));
+    font-size: 2rem;
+    filter: drop-shadow(0 0 15px var(--mana-cyan));
     pointer-events: none;
     z-index: 1;
-    animation: floatItem 5s ease-in-out infinite alternate;
+    animation: floatItem 4.5s ease-in-out infinite alternate;
 }
 
-.hero-section::before {
-    top: 25%;
-    left: 7%;
-}
-
+.hero-section::before { top: 22%; left: 6%; }
 .hero-section::after {
-    bottom: 20%;
-    right: 8%;
-    animation-delay: -2.5s;
-    filter: drop-shadow(0 0 12px var(--rune-gold));
+    bottom: 18%; right: 7%;
+    animation-delay: -2s;
+    filter: drop-shadow(0 0 15px var(--rune-gold));
 }
 
 @keyframes floatItem {
-    0% { transform: translateY(0) rotate(-10deg); }
-    100% { transform: translateY(-25px) rotate(15deg); }
+    0% { transform: translateY(0) rotate(-12deg); }
+    100% { transform: translateY(-28px) rotate(18deg); }
 }
 
 .hero-container {
@@ -323,12 +367,9 @@ body::after {
     margin-bottom: 30px;
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 16px;
-}
+.hero-buttons { display: flex; gap: 16px; }
 
-/* วงเวทหมุนรอบรูปโปรไฟล์ */
+/* วงเวทคาถา 2 ชั้นหมุนสวนทางกัน */
 .hero-image-wrapper {
     position: relative;
     flex: 1;
@@ -342,16 +383,33 @@ body::after {
     position: absolute;
     width: 350px;
     height: 350px;
-    border: 2px dashed rgba(0, 240, 255, 0.4);
+    border: 2px dashed rgba(0, 240, 255, 0.5);
     border-radius: 50%;
     z-index: 1;
-    animation: rotateRune 20s linear infinite;
+    animation: rotateRune 18s linear infinite;
+    pointer-events: none;
+}
+
+.hero-image-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border: 1px dotted rgba(255, 215, 0, 0.4);
+    border-radius: 50%;
+    z-index: 1;
+    animation: rotateRuneReverse 24s linear infinite;
     pointer-events: none;
 }
 
 @keyframes rotateRune {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+}
+
+@keyframes rotateRuneReverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
 }
 
 .bg-shape {
@@ -402,9 +460,7 @@ body::after {
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.btn:hover {
-    transform: translateY(-4px) scale(1.03);
-}
+.btn:hover { transform: translateY(-4px) scale(1.03); }
 
 .btn-primary {
     background: linear-gradient(135deg, var(--rune-gold), #D4AF37);
@@ -449,13 +505,11 @@ body::after {
     position: absolute;
     top: 0; left: -100%;
     width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.18), transparent);
     transition: left 0.7s ease;
 }
 
-.card:hover::before {
-    left: 100%;
-}
+.card:hover::before { left: 100%; }
 
 .card:hover {
     transform: translateY(-8px) scale(1.01);
@@ -473,10 +527,7 @@ body::after {
     transition: transform 0.3s ease;
 }
 
-.card:hover .card-icon {
-    transform: translateY(-5px) scale(1.1);
-}
-
+.card:hover .card-icon { transform: translateY(-5px) scale(1.1); }
 .highlight-card h3 { color: var(--rune-gold); margin-bottom: 8px; }
 
 /* =========================================
